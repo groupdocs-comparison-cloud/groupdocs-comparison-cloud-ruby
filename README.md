@@ -12,7 +12,7 @@ gem install groupdocs_comparison_cloud
 To add dependency to your app copy following into your Gemfile and run `bundle install`:
 
 ```
-gem "groupdocs_comparison_cloud", "~> 18.9"
+gem "groupdocs_comparison_cloud", "~> 19.5"
 ```
 
 ## Getting Started
@@ -27,7 +27,7 @@ app_sid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 app_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Create instance of the API class
-api = ComparisonApi.from_keys(app_sid, app_key)
+api = GroupDocsComparisonCloud::InfoApi.from_keys(app_sid, app_key)
 
 # Retrieve supported file-formats
 response = api.get_supported_file_formats
@@ -44,10 +44,10 @@ GroupDocs.Comparison Cloud Ruby SDK licensed under [MIT License](LICENSE).
 
 ## Resources
 + [**Website**](https://www.groupdocs.cloud)
-+ [**Product Home**](https://products.groupdocs.cloud/comparison/cloud)
++ [**Product Home**](https://products.groupdocs.cloud/comparison)
 + [**Documentation**](https://docs.groupdocs.cloud/display/comparisoncloud/Home)
 + [**Free Support Forum**](https://forum.groupdocs.cloud/c/comparison)
-+ [**Blog**](https://blog.groupdocs.cloud/category/groupdocs-comparison-cloud-product-family)
++ [**Blog**](https://blog.groupdocs.cloud/category/comparison)
 
 ## Contact Us
 Your feedback is very important to us. Please feel free to contact us using our [Support Forums](https://forum.groupdocs.cloud/c/comparison).

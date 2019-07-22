@@ -1,7 +1,7 @@
 #
 # --------------------------------------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd" file="test_contex.rb">
-#    Copyright (c) 2003-2018 Aspose Pty Ltd
+#    Copyright (c) 2003-2019 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,158 +24,66 @@
 # </summary>
 # --------------------------------------------------------------------------------------------------------------------
 #
-module GroupDocsComparisonCloud
+module GroupDocsComparisonCloud  
+    
+  require 'openssl'    
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
     require "minitest/autorun"
     require "minitest/unit"
-    require 'groupdocs_storage_cloud'
 
     require_relative './../lib/groupdocs_comparison_cloud'
     require_relative './test_settings'
+    require_relative './test_file'    
 
     class TestContext < Minitest::Test
 
-      include GroupDocsStorageCloud
       include MiniTest::Assertions
 
       @@test_files_uploaded ||= false
 
       def setup
-        init_comparison_api
-        init_storage_api
-        #upload_test_files
-      end
-
-      def teardown
-        remove_folder_in_storage "cache"
-        remove_folder_in_storage "tests"
-      end
-
-      def init_comparison_api
         config = Configuration.new(TestSettings::APP_SID, TestSettings::APP_KEY)
         config.api_base_url = TestSettings::API_BASE_URL
+        #config.debugging = true
 
-        @changes_api = ChangesApi.from_config(config)
-        @comparison_api = ComparisonApi.from_config(config)
+        @info_api = InfoApi.from_config(config)
+        @compare_api = CompareApi.from_config(config)
+        @storage_api = StorageApi.from_config(config)   
+        @folder_api = FolderApi.from_config(config)   
+        @file_api = FileApi.from_config(config)   
+
+        upload_test_files()
       end
 
-      def init_storage_api
-        GroupDocsStorageCloud.configure do |conf|
-          conf.api_key['api_key'] = TestSettings::APP_KEY
-          conf.api_key['app_sid'] = TestSettings::APP_SID
-          conf.host = TestSettings::API_BASE_URL
-        end
-
-        @storage_api = StorageApi.new
+      def teardown 
+        remove_folder_in_storage "resultFilePath"
       end
 
       def remove_folder_in_storage(folder)
         request = DeleteFolderRequest.new(folder, nil, true)
-        @storage_api.delete_folder request
+        @folder_api.delete_folder request
       end
 
       def upload_test_files
         unless @@test_files_uploaded then
-          test_file_path = File.dirname(__FILE__) + "./test_files/"
-          test_files = list_files test_file_path
+          test_file_path = "test\\test_files\\"
 
-          test_files.each do |file_path|
-            remote_file_path = file_path.sub(test_file_path, "")
-            test_file = File.open(file_path, "r").read
+          TestFile.test_files_list.each do |test_file|
 
-            file_exist_request = GetIsExistRequest.new remote_file_path
-            file_exist_response = @storage_api.get_is_exist file_exist_request
-
-            if !file_exist_response.file_exist.is_exist then
-              upload_file_request = PutCreateRequest.new remote_file_path, test_file
-              @storage_api.put_create upload_file_request
+            exist_request = ObjectExistsRequest.new(test_file.path)
+            exist_response = @storage_api.object_exists(exist_request)            
+            
+            if !exist_response.exists then
+              @storage_api.config.logger.debug "Uploading: " + test_file.path
+              file = File.open(test_file_path + test_file.path, "r")
+              upload_request = UploadFileRequest.new test_file.path, file
+              @file_api.upload_file(upload_request)
             end
           end
           @@test_files_uploaded = true
         end
       end
 
-      def list_files(base_path)
-        Dir.glob("#{base_path}**/*").select { |path| File.file? path }
-      end
-
-      def get_test_file(file)
-        base_path = File.dirname(__FILE__) + "/test_files"
-        test_file_folder = file.folder.sub("\\", "/")
-        test_file_path = "#{base_path}/#{test_file_folder}/#{file.file_name}"
-
-        File.open(test_file_path, "r")
-      end
-      def GetComparisonRequest(sourceName,*targetsNames)
-        request = ComparisonRequest.new;
-        setting = ComparisonRequestSettings.new;
-        setting.generate_summary_page = true;
-        setting.show_deleted_content = true;
-        setting.style_change_detection = true;
-        setting.use_frames_for_del_ins_elements = false;
-        setting.detail_level = "Low";
-
-        deletedItemStyle = StyleSettingsValues.new;
-        deletedItemStyle.begin_separator_string = "";
-        deletedItemStyle.end_separator_string = "";
-        deletedItemStyle.color = Color.new.red;
-
-        setting.deleted_items_style = deletedItemStyle;
-
-        insertedItemStyle = StyleSettingsValues.new;
-        insertedItemStyle.begin_separator_string = "";
-        insertedItemStyle.end_separator_string = "";
-        insertedItemStyle.color = Color.new.blue;
-
-        setting.inserted_items_style = insertedItemStyle;
-
-        styleChangeItemStyle = StyleSettingsValues.new;
-        styleChangeItemStyle.begin_separator_string= "";
-        styleChangeItemStyle.end_separator_string = "";
-        styleChangeItemStyle.color = Color.new.green;
-
-        setting.style_changed_items_style = styleChangeItemStyle;
-
-        setting.calculate_component_coordinates = false;
-        setting.clone_metadata = "Source";
-        setting.mark_deleted_inserted_content_deep = false;
-        setting.meta_data = nil;
-        setting.password = "1111";
-        setting.password_save_option = "User";
-
-        request.settings = setting;
-
-        sourseFile = ComparisonFileInfo.new;
-        sourseFile.folder = "";
-        sourseFile.password = "";
-        sourseFile.name = sourceName;
-
-        request.source_file = sourseFile;
-
-        targets = Array.new;
-
-        targetsNames.each do |targetName|
-          comparisonFileInfo = ComparisonFileInfo.new;
-          comparisonFileInfo.name = ""+targetName;
-          comparisonFileInfo.folder = "";
-          comparisonFileInfo.password = "";
-          targets.push(comparisonFileInfo);
-        end
-
-        request.target_files = targets;
-
-        comparisonChanges = Array.new(2);
-
-        comparisonChanges[0] = ComparisonChange.new;
-        comparisonChanges[0].id = 0;
-        comparisonChanges[0].action = "Accept";
-        comparisonChanges[1] = ComparisonChange.new;
-        comparisonChanges[1].id = 1;
-        comparisonChanges[1].action = "Reject";
-
-        request.changes = comparisonChanges;
-
-        request
-      end
     end
 end
