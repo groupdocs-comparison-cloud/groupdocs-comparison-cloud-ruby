@@ -1,6 +1,6 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="diagram_master_setting.rb">
+ # <copyright company="Aspose Pty Ltd" file="rectangle.rb">
  #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
@@ -28,28 +28,38 @@
 require 'date'
 
 module GroupDocsComparisonCloud
-  # DiagramMasterSetting Object fields
-  class DiagramMasterSetting
+  # Rectangle model
+  class Rectangle
 
-    # Path to custom master path
-    attr_accessor :master_path
+    # Height
+    attr_accessor :height
 
-    # Value of using master from source and target document together
-    attr_accessor :use_source_master
+    # Width
+    attr_accessor :width
+
+    # X coordinate
+    attr_accessor :x
+
+    # Y coordinate
+    attr_accessor :y
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'master_path' => :'MasterPath',
-        :'use_source_master' => :'UseSourceMaster'
+        :'height' => :'Height',
+        :'width' => :'Width',
+        :'x' => :'X',
+        :'y' => :'Y'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'master_path' => :'String',
-        :'use_source_master' => :'BOOLEAN'
+        :'height' => :'Float',
+        :'width' => :'Float',
+        :'x' => :'Float',
+        :'y' => :'Float'
       }
     end
 
@@ -61,12 +71,20 @@ module GroupDocsComparisonCloud
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.key?(:'MasterPath')
-        self.master_path = attributes[:'MasterPath']
+      if attributes.key?(:'Height')
+        self.height = attributes[:'Height']
       end
 
-      if attributes.key?(:'UseSourceMaster')
-        self.use_source_master = attributes[:'UseSourceMaster']
+      if attributes.key?(:'Width')
+        self.width = attributes[:'Width']
+      end
+
+      if attributes.key?(:'X')
+        self.x = attributes[:'X']
+      end
+
+      if attributes.key?(:'Y')
+        self.y = attributes[:'Y']
       end
 
     end
@@ -75,8 +93,20 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
-      if @use_source_master.nil?
-        invalid_properties.push("invalid value for 'use_source_master', use_source_master cannot be nil.")
+      if @height.nil?
+        invalid_properties.push("invalid value for 'height', height cannot be nil.")
+      end
+
+      if @width.nil?
+        invalid_properties.push("invalid value for 'width', width cannot be nil.")
+      end
+
+      if @x.nil?
+        invalid_properties.push("invalid value for 'x', x cannot be nil.")
+      end
+
+      if @y.nil?
+        invalid_properties.push("invalid value for 'y', y cannot be nil.")
       end
 
       return invalid_properties
@@ -85,7 +115,10 @@ module GroupDocsComparisonCloud
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @use_source_master.nil?
+      return false if @height.nil?
+      return false if @width.nil?
+      return false if @x.nil?
+      return false if @y.nil?
       return true
     end
 
@@ -94,8 +127,10 @@ module GroupDocsComparisonCloud
     def ==(other)
       return true if self.equal?(other)
       self.class == other.class &&
-          master_path == other.master_path &&
-          use_source_master == other.use_source_master
+          height == other.height &&
+          width == other.width &&
+          x == other.x &&
+          y == other.y
     end
 
     # @see the `==` method
@@ -107,7 +142,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [master_path, use_source_master].hash
+      [height, width, x, y].hash
     end
 
     # Downcases first letter.

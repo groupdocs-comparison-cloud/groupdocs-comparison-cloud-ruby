@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="updates_options.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -40,11 +40,35 @@ module GroupDocsComparisonCloud
     # Comparison settings
     attr_accessor :settings
 
+    # Changes type. Used only for Changes resource(/comparison/changes)
+    attr_accessor :change_type
+
     # Path to the resultant document (if not specified the document will not be saved)
     attr_accessor :output_path
 
-    # Changes to apply or reject. Used only for Changes resourse (/comparison/updates)
+    # Changes to apply or reject. Used only for updates resource (/comparison/updates)
     attr_accessor :changes
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -52,6 +76,7 @@ module GroupDocsComparisonCloud
         :'source_file' => :'SourceFile',
         :'target_files' => :'TargetFiles',
         :'settings' => :'Settings',
+        :'change_type' => :'ChangeType',
         :'output_path' => :'OutputPath',
         :'changes' => :'Changes'
       }
@@ -63,6 +88,7 @@ module GroupDocsComparisonCloud
         :'source_file' => :'FileInfo',
         :'target_files' => :'Array<FileInfo>',
         :'settings' => :'Settings',
+        :'change_type' => :'String',
         :'output_path' => :'String',
         :'changes' => :'Array<ChangeInfo>'
       }
@@ -90,6 +116,10 @@ module GroupDocsComparisonCloud
         self.settings = attributes[:'Settings']
       end
 
+      if attributes.key?(:'ChangeType')
+        self.change_type = attributes[:'ChangeType']
+      end
+
       if attributes.key?(:'OutputPath')
         self.output_path = attributes[:'OutputPath']
       end
@@ -106,13 +136,34 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
+      if @change_type.nil?
+        invalid_properties.push("invalid value for 'change_type', change_type cannot be nil.")
+      end
+
       return invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @change_type.nil?
+      change_type_validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
+      return false unless change_type_validator.valid?(@change_type)
       return true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] change_type Object to be assigned
+    def change_type=(change_type)
+      validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
+      if change_type.to_i == 0
+        unless validator.valid?(change_type)
+          raise ArgumentError, "invalid value for 'change_type', must be one of #{validator.allowable_values}."
+        end
+        @change_type = change_type
+      else
+        @change_type = validator.allowable_values[change_type.to_i]
+      end
     end
 
     # Checks equality by comparing each attribute.
@@ -123,6 +174,7 @@ module GroupDocsComparisonCloud
           source_file == other.source_file &&
           target_files == other.target_files &&
           settings == other.settings &&
+          change_type == other.change_type &&
           output_path == other.output_path &&
           changes == other.changes
     end
@@ -136,7 +188,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_file, target_files, settings, output_path, changes].hash
+      [source_file, target_files, settings, change_type, output_path, changes].hash
     end
 
     # Downcases first letter.

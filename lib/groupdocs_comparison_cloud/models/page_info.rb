@@ -1,6 +1,6 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="diagram_master_setting.rb">
+ # <copyright company="Aspose Pty Ltd" file="page_info.rb">
  #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
@@ -28,28 +28,33 @@
 require 'date'
 
 module GroupDocsComparisonCloud
-  # DiagramMasterSetting Object fields
-  class DiagramMasterSetting
+  # Represents information about page
+  class PageInfo
 
-    # Path to custom master path
-    attr_accessor :master_path
+    # Page width
+    attr_accessor :width
 
-    # Value of using master from source and target document together
-    attr_accessor :use_source_master
+    # Page height
+    attr_accessor :height
+
+    # Page number
+    attr_accessor :page_number
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'master_path' => :'MasterPath',
-        :'use_source_master' => :'UseSourceMaster'
+        :'width' => :'Width',
+        :'height' => :'Height',
+        :'page_number' => :'PageNumber'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'master_path' => :'String',
-        :'use_source_master' => :'BOOLEAN'
+        :'width' => :'Integer',
+        :'height' => :'Integer',
+        :'page_number' => :'Integer'
       }
     end
 
@@ -61,12 +66,16 @@ module GroupDocsComparisonCloud
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.key?(:'MasterPath')
-        self.master_path = attributes[:'MasterPath']
+      if attributes.key?(:'Width')
+        self.width = attributes[:'Width']
       end
 
-      if attributes.key?(:'UseSourceMaster')
-        self.use_source_master = attributes[:'UseSourceMaster']
+      if attributes.key?(:'Height')
+        self.height = attributes[:'Height']
+      end
+
+      if attributes.key?(:'PageNumber')
+        self.page_number = attributes[:'PageNumber']
       end
 
     end
@@ -75,8 +84,16 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
-      if @use_source_master.nil?
-        invalid_properties.push("invalid value for 'use_source_master', use_source_master cannot be nil.")
+      if @width.nil?
+        invalid_properties.push("invalid value for 'width', width cannot be nil.")
+      end
+
+      if @height.nil?
+        invalid_properties.push("invalid value for 'height', height cannot be nil.")
+      end
+
+      if @page_number.nil?
+        invalid_properties.push("invalid value for 'page_number', page_number cannot be nil.")
       end
 
       return invalid_properties
@@ -85,7 +102,9 @@ module GroupDocsComparisonCloud
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @use_source_master.nil?
+      return false if @width.nil?
+      return false if @height.nil?
+      return false if @page_number.nil?
       return true
     end
 
@@ -94,8 +113,9 @@ module GroupDocsComparisonCloud
     def ==(other)
       return true if self.equal?(other)
       self.class == other.class &&
-          master_path == other.master_path &&
-          use_source_master == other.use_source_master
+          width == other.width &&
+          height == other.height &&
+          page_number == other.page_number
     end
 
     # @see the `==` method
@@ -107,7 +127,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [master_path, use_source_master].hash
+      [width, height, page_number].hash
     end
 
     # Downcases first letter.

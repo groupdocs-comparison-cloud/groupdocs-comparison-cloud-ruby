@@ -1,7 +1,7 @@
 #
 # --------------------------------------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd">
-#    Copyright (c) 2003-2019 Aspose Pty Ltd
+#    Copyright (c) 2003-2020 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,77 +35,77 @@ module GroupDocsComparisonCloud
     def test_comparisons_cells
       options = GetComparisonOptions(TestFile::SourceCell, TestFile::TargetCell)
       response = @compare_api.comparisons(ComparisonsRequest.new options)
-      assert_equal response.href, options.output_path
+      assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_diagram
         options = GetComparisonOptions(TestFile::SourceDiagram, TestFile::TargetDiagram)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end        
 
     def test_comparisons_email
         options = GetComparisonOptions(TestFile::SourceEmail, TestFile::TargetEmail)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_html
         options = GetComparisonOptions(TestFile::SourceHtml, TestFile::TargetHtml)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end 
 
     def test_comparisons_image
         options = GetComparisonOptions(TestFile::SourceImage, TestFile::TargetImage)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end 
 
     def test_comparisons_note
         options = GetComparisonOptions(TestFile::SourceNote, TestFile::TargetNote)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_note_protected
         options = GetComparisonOptions(TestFile::SourceNoteProtected, TestFile::TargetNoteProtected)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_pdf
         options = GetComparisonOptions(TestFile::SourcePdf, TestFile::TargetPdf)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_pdf_protected
         options = GetComparisonOptions(TestFile::SourcePdfProtected, TestFile::TargetPdfProtected)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_text
         options = GetComparisonOptions(TestFile::SourceText, TestFile::TargetText)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_word
         options = GetComparisonOptions(TestFile::SourceWord, TestFile::TargetWord)
         response = @compare_api.comparisons(ComparisonsRequest.new options)
-        assert_equal response.href, options.output_path
+        assert_equal response.rel, options.output_path
     end
 
     def test_comparisons_word_protected
       options = GetComparisonOptions(TestFile::SourceWordProtected, TestFile::TargetWordProtected)
       response = @compare_api.comparisons(ComparisonsRequest.new options)
-      assert_equal response.href, options.output_path
+      assert_equal response.rel, options.output_path
     end
 
     def GetComparisonOptions(source, target)
-        options = Options.new
+        options = ComparisonOptions.new
         options.source_file = source.file_info()
         options.output_path = "/resultFilePath/" + source.file_name
         
@@ -115,11 +115,10 @@ module GroupDocsComparisonCloud
         options.settings.style_change_detection = true
         options.settings.use_frames_for_del_ins_elements = false
         options.settings.meta_data = nil
-        options.settings.detail_level = "Low"
+        options.settings.details_level = "Low"
         options.settings.diagram_master_setting = nil
         options.settings.calculate_component_coordinates = false
         options.settings.clone_metadata = "Default"
-        options.settings.mark_deleted_inserted_content_deep = false
         options.settings.password = "1111"
         options.settings.password_save_option = "User"
         
@@ -141,14 +140,14 @@ module GroupDocsComparisonCloud
         options.settings.inserted_items_style.italic = false
         options.settings.inserted_items_style.strike_through = false
         
-        options.settings.style_changed_items_style = ItemsStyle.new
-        options.settings.style_changed_items_style.begin_separator_string = ""
-        options.settings.style_changed_items_style.end_separator_string = ""
-        options.settings.style_changed_items_style.font_color = "65280"
-        options.settings.style_changed_items_style.highlight_color = "65280"
-        options.settings.style_changed_items_style.bold = false
-        options.settings.style_changed_items_style.italic = false
-        options.settings.style_changed_items_style.strike_through = false
+        options.settings.changed_items_style = ItemsStyle.new
+        options.settings.changed_items_style.begin_separator_string = ""
+        options.settings.changed_items_style.end_separator_string = ""
+        options.settings.changed_items_style.font_color = "65280"
+        options.settings.changed_items_style.highlight_color = "65280"
+        options.settings.changed_items_style.bold = false
+        options.settings.changed_items_style.italic = false
+        options.settings.changed_items_style.strike_through = false
       
         options.target_files = [target.file_info()]
 

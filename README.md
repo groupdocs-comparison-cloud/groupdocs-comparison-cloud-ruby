@@ -12,7 +12,7 @@ gem install groupdocs_comparison_cloud
 To add dependency to your app copy following into your Gemfile and run `bundle install`:
 
 ```
-gem "groupdocs_comparison_cloud", "~> 19.5"
+gem "groupdocs_comparison_cloud", "~> 20.5"
 ```
 
 ## Getting Started

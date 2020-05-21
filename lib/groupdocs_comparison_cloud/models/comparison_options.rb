@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="original_size.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ # <copyright company="Aspose Pty Ltd" file="comparison_options.rb">
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,28 +28,64 @@
 require 'date'
 
 module GroupDocsComparisonCloud
-  # OriginalSize Object fields
-  class OriginalSize
+  # Defines comparison options
+  class ComparisonOptions
 
-    # Width of original document
-    attr_accessor :width
+    # Information about source file
+    attr_accessor :source_file
 
-    # Height of original document
-    attr_accessor :height
+    # Information about target file(s)
+    attr_accessor :target_files
+
+    # Comparison settings
+    attr_accessor :settings
+
+    # Changes type. Used only for Changes resource(/comparison/changes)
+    attr_accessor :change_type
+
+    # Path to the resultant document (if not specified the document will not be saved)
+    attr_accessor :output_path
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'width' => :'Width',
-        :'height' => :'Height'
+        :'source_file' => :'SourceFile',
+        :'target_files' => :'TargetFiles',
+        :'settings' => :'Settings',
+        :'change_type' => :'ChangeType',
+        :'output_path' => :'OutputPath'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'width' => :'Integer',
-        :'height' => :'Integer'
+        :'source_file' => :'FileInfo',
+        :'target_files' => :'Array<FileInfo>',
+        :'settings' => :'Settings',
+        :'change_type' => :'String',
+        :'output_path' => :'String'
       }
     end
 
@@ -61,12 +97,26 @@ module GroupDocsComparisonCloud
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.key?(:'Width')
-        self.width = attributes[:'Width']
+      if attributes.key?(:'SourceFile')
+        self.source_file = attributes[:'SourceFile']
       end
 
-      if attributes.key?(:'Height')
-        self.height = attributes[:'Height']
+      if attributes.key?(:'TargetFiles')
+        if (value = attributes[:'TargetFiles']).is_a?(Array)
+          self.target_files = value
+        end
+      end
+
+      if attributes.key?(:'Settings')
+        self.settings = attributes[:'Settings']
+      end
+
+      if attributes.key?(:'ChangeType')
+        self.change_type = attributes[:'ChangeType']
+      end
+
+      if attributes.key?(:'OutputPath')
+        self.output_path = attributes[:'OutputPath']
       end
 
     end
@@ -75,12 +125,8 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
-      if @width.nil?
-        invalid_properties.push("invalid value for 'width', width cannot be nil.")
-      end
-
-      if @height.nil?
-        invalid_properties.push("invalid value for 'height', height cannot be nil.")
+      if @change_type.nil?
+        invalid_properties.push("invalid value for 'change_type', change_type cannot be nil.")
       end
 
       return invalid_properties
@@ -89,9 +135,24 @@ module GroupDocsComparisonCloud
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @width.nil?
-      return false if @height.nil?
+      return false if @change_type.nil?
+      change_type_validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
+      return false unless change_type_validator.valid?(@change_type)
       return true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] change_type Object to be assigned
+    def change_type=(change_type)
+      validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
+      if change_type.to_i == 0
+        unless validator.valid?(change_type)
+          raise ArgumentError, "invalid value for 'change_type', must be one of #{validator.allowable_values}."
+        end
+        @change_type = change_type
+      else
+        @change_type = validator.allowable_values[change_type.to_i]
+      end
     end
 
     # Checks equality by comparing each attribute.
@@ -99,8 +160,11 @@ module GroupDocsComparisonCloud
     def ==(other)
       return true if self.equal?(other)
       self.class == other.class &&
-          width == other.width &&
-          height == other.height
+          source_file == other.source_file &&
+          target_files == other.target_files &&
+          settings == other.settings &&
+          change_type == other.change_type &&
+          output_path == other.output_path
     end
 
     # @see the `==` method
@@ -112,7 +176,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [width, height].hash
+      [source_file, target_files, settings, change_type, output_path].hash
     end
 
     # Downcases first letter.

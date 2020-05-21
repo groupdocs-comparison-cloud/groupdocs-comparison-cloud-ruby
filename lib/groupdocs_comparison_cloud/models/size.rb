@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="options.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ # <copyright company="Aspose Pty Ltd" file="size.rb">
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,38 +28,28 @@
 require 'date'
 
 module GroupDocsComparisonCloud
-  # Defines comparison options
-  class Options
+  # Item size
+  class Size
 
-    # Information about source file
-    attr_accessor :source_file
+    # Width of item
+    attr_accessor :width
 
-    # Information about target file(s)
-    attr_accessor :target_files
-
-    # Comparison settings
-    attr_accessor :settings
-
-    # Path to the resultant document (if not specified the document will not be saved)
-    attr_accessor :output_path
+    # Height of item
+    attr_accessor :height
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'source_file' => :'SourceFile',
-        :'target_files' => :'TargetFiles',
-        :'settings' => :'Settings',
-        :'output_path' => :'OutputPath'
+        :'width' => :'Width',
+        :'height' => :'Height'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'source_file' => :'FileInfo',
-        :'target_files' => :'Array<FileInfo>',
-        :'settings' => :'Settings',
-        :'output_path' => :'String'
+        :'width' => :'Integer',
+        :'height' => :'Integer'
       }
     end
 
@@ -71,22 +61,12 @@ module GroupDocsComparisonCloud
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.key?(:'SourceFile')
-        self.source_file = attributes[:'SourceFile']
+      if attributes.key?(:'Width')
+        self.width = attributes[:'Width']
       end
 
-      if attributes.key?(:'TargetFiles')
-        if (value = attributes[:'TargetFiles']).is_a?(Array)
-          self.target_files = value
-        end
-      end
-
-      if attributes.key?(:'Settings')
-        self.settings = attributes[:'Settings']
-      end
-
-      if attributes.key?(:'OutputPath')
-        self.output_path = attributes[:'OutputPath']
+      if attributes.key?(:'Height')
+        self.height = attributes[:'Height']
       end
 
     end
@@ -95,12 +75,22 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
+      if @width.nil?
+        invalid_properties.push("invalid value for 'width', width cannot be nil.")
+      end
+
+      if @height.nil?
+        invalid_properties.push("invalid value for 'height', height cannot be nil.")
+      end
+
       return invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @width.nil?
+      return false if @height.nil?
       return true
     end
 
@@ -109,10 +99,8 @@ module GroupDocsComparisonCloud
     def ==(other)
       return true if self.equal?(other)
       self.class == other.class &&
-          source_file == other.source_file &&
-          target_files == other.target_files &&
-          settings == other.settings &&
-          output_path == other.output_path
+          width == other.width &&
+          height == other.height
     end
 
     # @see the `==` method
@@ -124,7 +112,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_file, target_files, settings, output_path].hash
+      [width, height].hash
     end
 
     # Downcases first letter.

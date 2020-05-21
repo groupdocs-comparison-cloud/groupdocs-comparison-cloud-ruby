@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="items_style.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -49,8 +49,11 @@ module GroupDocsComparisonCloud
     # Italic style for changed components
     attr_accessor :italic
 
-    # Strikethrough style for changed components
+    # Strike through style for changed components
     attr_accessor :strike_through
+
+    # Underline style for changed components
+    attr_accessor :underline
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -61,7 +64,8 @@ module GroupDocsComparisonCloud
         :'end_separator_string' => :'EndSeparatorString',
         :'bold' => :'Bold',
         :'italic' => :'Italic',
-        :'strike_through' => :'StrikeThrough'
+        :'strike_through' => :'StrikeThrough',
+        :'underline' => :'Underline'
       }
     end
 
@@ -74,7 +78,8 @@ module GroupDocsComparisonCloud
         :'end_separator_string' => :'String',
         :'bold' => :'BOOLEAN',
         :'italic' => :'BOOLEAN',
-        :'strike_through' => :'BOOLEAN'
+        :'strike_through' => :'BOOLEAN',
+        :'underline' => :'BOOLEAN'
       }
     end
 
@@ -114,6 +119,10 @@ module GroupDocsComparisonCloud
         self.strike_through = attributes[:'StrikeThrough']
       end
 
+      if attributes.key?(:'Underline')
+        self.underline = attributes[:'Underline']
+      end
+
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -132,6 +141,10 @@ module GroupDocsComparisonCloud
         invalid_properties.push("invalid value for 'strike_through', strike_through cannot be nil.")
       end
 
+      if @underline.nil?
+        invalid_properties.push("invalid value for 'underline', underline cannot be nil.")
+      end
+
       return invalid_properties
     end
 
@@ -141,6 +154,7 @@ module GroupDocsComparisonCloud
       return false if @bold.nil?
       return false if @italic.nil?
       return false if @strike_through.nil?
+      return false if @underline.nil?
       return true
     end
 
@@ -155,7 +169,8 @@ module GroupDocsComparisonCloud
           end_separator_string == other.end_separator_string &&
           bold == other.bold &&
           italic == other.italic &&
-          strike_through == other.strike_through
+          strike_through == other.strike_through &&
+          underline == other.underline
     end
 
     # @see the `==` method
@@ -167,7 +182,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [font_color, highlight_color, begin_separator_string, end_separator_string, bold, italic, strike_through].hash
+      [font_color, highlight_color, begin_separator_string, end_separator_string, bold, italic, strike_through, underline].hash
     end
 
     # Downcases first letter.

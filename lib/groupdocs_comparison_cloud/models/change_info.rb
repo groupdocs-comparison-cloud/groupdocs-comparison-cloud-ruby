@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="change_info.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,10 +38,13 @@ module GroupDocsComparisonCloud
     attr_accessor :comparison_action
 
     # Type of change (Inserted, Deleted or StyleChanged)
-    attr_accessor :comparison_type_changed
+    attr_accessor :type
 
     # Text of changed element
     attr_accessor :text
+
+    # Changed text of target doc
+    attr_accessor :target_text
 
     # Array of authors who made this change (used for multi comparison)
     attr_accessor :authors
@@ -49,15 +52,45 @@ module GroupDocsComparisonCloud
     # Array of style changes
     attr_accessor :style_change_info
 
+    # Page where current change is placed
+    attr_accessor :page_info
+
+    # Coordinates of changed element
+    attr_accessor :box
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'Id',
         :'comparison_action' => :'ComparisonAction',
-        :'comparison_type_changed' => :'ComparisonTypeChanged',
+        :'type' => :'Type',
         :'text' => :'Text',
+        :'target_text' => :'TargetText',
         :'authors' => :'Authors',
-        :'style_change_info' => :'StyleChangeInfo'
+        :'style_change_info' => :'StyleChangeInfo',
+        :'page_info' => :'PageInfo',
+        :'box' => :'Box'
       }
     end
 
@@ -66,10 +99,13 @@ module GroupDocsComparisonCloud
       {
         :'id' => :'Integer',
         :'comparison_action' => :'String',
-        :'comparison_type_changed' => :'String',
+        :'type' => :'String',
         :'text' => :'String',
+        :'target_text' => :'String',
         :'authors' => :'Array<String>',
-        :'style_change_info' => :'Array<StyleChangeInfo>'
+        :'style_change_info' => :'Array<StyleChangeInfo>',
+        :'page_info' => :'PageInfo',
+        :'box' => :'Rectangle'
       }
     end
 
@@ -89,12 +125,16 @@ module GroupDocsComparisonCloud
         self.comparison_action = attributes[:'ComparisonAction']
       end
 
-      if attributes.key?(:'ComparisonTypeChanged')
-        self.comparison_type_changed = attributes[:'ComparisonTypeChanged']
+      if attributes.key?(:'Type')
+        self.type = attributes[:'Type']
       end
 
       if attributes.key?(:'Text')
         self.text = attributes[:'Text']
+      end
+
+      if attributes.key?(:'TargetText')
+        self.target_text = attributes[:'TargetText']
       end
 
       if attributes.key?(:'Authors')
@@ -109,6 +149,14 @@ module GroupDocsComparisonCloud
         end
       end
 
+      if attributes.key?(:'PageInfo')
+        self.page_info = attributes[:'PageInfo']
+      end
+
+      if attributes.key?(:'Box')
+        self.box = attributes[:'Box']
+      end
+
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -119,6 +167,18 @@ module GroupDocsComparisonCloud
         invalid_properties.push("invalid value for 'id', id cannot be nil.")
       end
 
+      if @comparison_action.nil?
+        invalid_properties.push("invalid value for 'comparison_action', comparison_action cannot be nil.")
+      end
+
+      if @type.nil?
+        invalid_properties.push("invalid value for 'type', type cannot be nil.")
+      end
+
+      if @box.nil?
+        invalid_properties.push("invalid value for 'box', box cannot be nil.")
+      end
+
       return invalid_properties
     end
 
@@ -126,7 +186,42 @@ module GroupDocsComparisonCloud
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      return false if @comparison_action.nil?
+      comparison_action_validator = EnumAttributeValidator.new('String', ["None", "Accept", "Reject"])
+      return false unless comparison_action_validator.valid?(@comparison_action)
+      return false if @type.nil?
+      type_validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
+      return false unless type_validator.valid?(@type)
+      return false if @box.nil?
       return true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] comparison_action Object to be assigned
+    def comparison_action=(comparison_action)
+      validator = EnumAttributeValidator.new('String', ["None", "Accept", "Reject"])
+      if comparison_action.to_i == 0
+        unless validator.valid?(comparison_action)
+          raise ArgumentError, "invalid value for 'comparison_action', must be one of #{validator.allowable_values}."
+        end
+        @comparison_action = comparison_action
+      else
+        @comparison_action = validator.allowable_values[comparison_action.to_i]
+      end
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
+      if type.to_i == 0
+        unless validator.valid?(type)
+          raise ArgumentError, "invalid value for 'type', must be one of #{validator.allowable_values}."
+        end
+        @type = type
+      else
+        @type = validator.allowable_values[type.to_i]
+      end
     end
 
     # Checks equality by comparing each attribute.
@@ -136,10 +231,13 @@ module GroupDocsComparisonCloud
       self.class == other.class &&
           id == other.id &&
           comparison_action == other.comparison_action &&
-          comparison_type_changed == other.comparison_type_changed &&
+          type == other.type &&
           text == other.text &&
+          target_text == other.target_text &&
           authors == other.authors &&
-          style_change_info == other.style_change_info
+          style_change_info == other.style_change_info &&
+          page_info == other.page_info &&
+          box == other.box
     end
 
     # @see the `==` method
@@ -151,7 +249,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, comparison_action, comparison_type_changed, text, authors, style_change_info].hash
+      [id, comparison_action, type, text, target_text, authors, style_change_info, page_info, box].hash
     end
 
     # Downcases first letter.

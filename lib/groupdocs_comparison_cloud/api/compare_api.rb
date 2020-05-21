@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd" file="compare.rb">
-#   Copyright (c) 2003-2019 Aspose Pty Ltd
+#   Copyright (c) 2003-2020 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -186,8 +186,8 @@ module GroupDocsComparisonCloud
       raise ArgumentError, 'Incorrect request type' unless request.is_a? PutChangesDocumentRequest
 
       @api_client.config.logger.debug 'Calling API: CompareApi.put_changes_document ...' if @api_client.config.debugging
-      # verify the required parameter 'comparison_options' is set
-      raise ArgumentError, 'Missing the required parameter comparison_options when calling CompareApi.put_changes_document' if @api_client.config.client_side_validation && request.comparison_options.nil?
+      # verify the required parameter 'updates_options' is set
+      raise ArgumentError, 'Missing the required parameter updates_options when calling CompareApi.put_changes_document' if @api_client.config.client_side_validation && request.updates_options.nil?
       # resource path
       local_var_path = '/comparison/updates'
 
@@ -205,7 +205,7 @@ module GroupDocsComparisonCloud
       form_params = {}
 
       # http body (model)
-      post_body = @api_client.object_to_http_body(request.comparison_options)
+      post_body = @api_client.object_to_http_body(request.updates_options)
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path,
                                                         header_params: header_params,
                                                         query_params: query_params,
@@ -277,7 +277,7 @@ end
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="comparisons_request.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -322,7 +322,7 @@ end
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="post_changes_request.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -367,7 +367,7 @@ end
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="put_changes_document_request.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -399,13 +399,13 @@ module GroupDocsComparisonCloud
   class PutChangesDocumentRequest
 
         # Comparison options
-        attr_accessor :comparison_options
+        attr_accessor :updates_options
 	
         #
         # Initializes a new instance.
-        # @param comparison_options Comparison options
-        def initialize(comparison_options)
-           self.comparison_options = comparison_options
+        # @param updates_options Comparison options
+        def initialize(updates_options)
+           self.updates_options = updates_options
         end
   end
 end

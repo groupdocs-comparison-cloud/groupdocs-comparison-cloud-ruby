@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd" file="groupdocs_comparison_cloud.rb">
-#   Copyright (c) 2003-2019 Aspose Pty Ltd
+#   Copyright (c) 2003-2020 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,6 +31,7 @@ require_relative 'groupdocs_comparison_cloud/configuration'
 
 # Models
 require_relative 'groupdocs_comparison_cloud/models/change_info'
+require_relative 'groupdocs_comparison_cloud/models/comparison_options'
 require_relative 'groupdocs_comparison_cloud/models/diagram_master_setting'
 require_relative 'groupdocs_comparison_cloud/models/disc_usage'
 require_relative 'groupdocs_comparison_cloud/models/error'
@@ -41,13 +42,15 @@ require_relative 'groupdocs_comparison_cloud/models/files_list'
 require_relative 'groupdocs_comparison_cloud/models/files_upload_result'
 require_relative 'groupdocs_comparison_cloud/models/format'
 require_relative 'groupdocs_comparison_cloud/models/formats_result'
+require_relative 'groupdocs_comparison_cloud/models/info_result'
 require_relative 'groupdocs_comparison_cloud/models/items_style'
 require_relative 'groupdocs_comparison_cloud/models/link'
 require_relative 'groupdocs_comparison_cloud/models/metadata'
 require_relative 'groupdocs_comparison_cloud/models/object_exist'
-require_relative 'groupdocs_comparison_cloud/models/options'
-require_relative 'groupdocs_comparison_cloud/models/original_size'
+require_relative 'groupdocs_comparison_cloud/models/page_info'
+require_relative 'groupdocs_comparison_cloud/models/rectangle'
 require_relative 'groupdocs_comparison_cloud/models/settings'
+require_relative 'groupdocs_comparison_cloud/models/size'
 require_relative 'groupdocs_comparison_cloud/models/storage_exist'
 require_relative 'groupdocs_comparison_cloud/models/storage_file'
 require_relative 'groupdocs_comparison_cloud/models/style_change_info'

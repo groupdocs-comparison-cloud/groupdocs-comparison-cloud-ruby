@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="settings.rb">
- #   Copyright (c) 2003-2019 Aspose Pty Ltd
+ #   Copyright (c) 2003-2020 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,6 +37,9 @@ module GroupDocsComparisonCloud
     # Indicates whether to show deleted components in resultant document or not
     attr_accessor :show_deleted_content
 
+    # Indicates whether to show inserted components in resultant document or not
+    attr_accessor :show_inserted_content
+
     # Indicates whether to detect style changes or not
     attr_accessor :style_change_detection
 
@@ -47,13 +50,13 @@ module GroupDocsComparisonCloud
     attr_accessor :deleted_items_style
 
     # Style for components with changed style
-    attr_accessor :style_changed_items_style
+    attr_accessor :changed_items_style
 
     # An array of delimiters to split text into words
     attr_accessor :words_separator_chars
 
-    # Gets of sets the comparison detalisation level 
-    attr_accessor :detail_level
+    # Gets of sets the comparison details level 
+    attr_accessor :details_level
 
     # Indicates whether to use frames for shapes in Word Processing and for rectangles in Image documents
     attr_accessor :use_frames_for_del_ins_elements
@@ -61,8 +64,11 @@ module GroupDocsComparisonCloud
     # Indicates whether to calculate coordinates for changed components
     attr_accessor :calculate_component_coordinates
 
-    # Indicates whether to accept inserted/deleted styles for all children of inserted/deleted components
-    attr_accessor :mark_deleted_inserted_content_deep
+    # Indicates whether to use frames for shapes in Word Processing and for rectangles in Image documents
+    attr_accessor :mark_changed_content
+
+    # Gets or sets a value indicating whether to mark the children of the deleted or inserted element as deleted or inserted
+    attr_accessor :mark_nested_content
 
     # Gets or sets type of metadata to clone
     attr_accessor :clone_metadata
@@ -82,26 +88,61 @@ module GroupDocsComparisonCloud
     # Gets or sets original document size when picture is compared with other different formats
     attr_accessor :original_size
 
+    # Control to turn on comparison of header/footer contents
+    attr_accessor :header_footers_comparison
+
+    # Gets or sets the result document paper size
+    attr_accessor :paper_size
+
+    # Gets or sets a sensitivity of comparison. Default is 75
+    attr_accessor :sensitivity_of_comparison
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'generate_summary_page' => :'GenerateSummaryPage',
         :'show_deleted_content' => :'ShowDeletedContent',
+        :'show_inserted_content' => :'ShowInsertedContent',
         :'style_change_detection' => :'StyleChangeDetection',
         :'inserted_items_style' => :'InsertedItemsStyle',
         :'deleted_items_style' => :'DeletedItemsStyle',
-        :'style_changed_items_style' => :'StyleChangedItemsStyle',
+        :'changed_items_style' => :'ChangedItemsStyle',
         :'words_separator_chars' => :'WordsSeparatorChars',
-        :'detail_level' => :'DetailLevel',
+        :'details_level' => :'DetailsLevel',
         :'use_frames_for_del_ins_elements' => :'UseFramesForDelInsElements',
         :'calculate_component_coordinates' => :'CalculateComponentCoordinates',
-        :'mark_deleted_inserted_content_deep' => :'MarkDeletedInsertedContentDeep',
+        :'mark_changed_content' => :'MarkChangedContent',
+        :'mark_nested_content' => :'MarkNestedContent',
         :'clone_metadata' => :'CloneMetadata',
         :'meta_data' => :'MetaData',
         :'password_save_option' => :'PasswordSaveOption',
         :'password' => :'Password',
         :'diagram_master_setting' => :'DiagramMasterSetting',
-        :'original_size' => :'OriginalSize'
+        :'original_size' => :'OriginalSize',
+        :'header_footers_comparison' => :'HeaderFootersComparison',
+        :'paper_size' => :'PaperSize',
+        :'sensitivity_of_comparison' => :'SensitivityOfComparison'
       }
     end
 
@@ -110,21 +151,26 @@ module GroupDocsComparisonCloud
       {
         :'generate_summary_page' => :'BOOLEAN',
         :'show_deleted_content' => :'BOOLEAN',
+        :'show_inserted_content' => :'BOOLEAN',
         :'style_change_detection' => :'BOOLEAN',
         :'inserted_items_style' => :'ItemsStyle',
         :'deleted_items_style' => :'ItemsStyle',
-        :'style_changed_items_style' => :'ItemsStyle',
+        :'changed_items_style' => :'ItemsStyle',
         :'words_separator_chars' => :'Array<String>',
-        :'detail_level' => :'String',
+        :'details_level' => :'String',
         :'use_frames_for_del_ins_elements' => :'BOOLEAN',
         :'calculate_component_coordinates' => :'BOOLEAN',
-        :'mark_deleted_inserted_content_deep' => :'BOOLEAN',
+        :'mark_changed_content' => :'BOOLEAN',
+        :'mark_nested_content' => :'BOOLEAN',
         :'clone_metadata' => :'String',
         :'meta_data' => :'Metadata',
         :'password_save_option' => :'String',
         :'password' => :'String',
         :'diagram_master_setting' => :'DiagramMasterSetting',
-        :'original_size' => :'OriginalSize'
+        :'original_size' => :'Size',
+        :'header_footers_comparison' => :'BOOLEAN',
+        :'paper_size' => :'String',
+        :'sensitivity_of_comparison' => :'Integer'
       }
     end
 
@@ -144,6 +190,10 @@ module GroupDocsComparisonCloud
         self.show_deleted_content = attributes[:'ShowDeletedContent']
       end
 
+      if attributes.key?(:'ShowInsertedContent')
+        self.show_inserted_content = attributes[:'ShowInsertedContent']
+      end
+
       if attributes.key?(:'StyleChangeDetection')
         self.style_change_detection = attributes[:'StyleChangeDetection']
       end
@@ -156,8 +206,8 @@ module GroupDocsComparisonCloud
         self.deleted_items_style = attributes[:'DeletedItemsStyle']
       end
 
-      if attributes.key?(:'StyleChangedItemsStyle')
-        self.style_changed_items_style = attributes[:'StyleChangedItemsStyle']
+      if attributes.key?(:'ChangedItemsStyle')
+        self.changed_items_style = attributes[:'ChangedItemsStyle']
       end
 
       if attributes.key?(:'WordsSeparatorChars')
@@ -166,8 +216,8 @@ module GroupDocsComparisonCloud
         end
       end
 
-      if attributes.key?(:'DetailLevel')
-        self.detail_level = attributes[:'DetailLevel']
+      if attributes.key?(:'DetailsLevel')
+        self.details_level = attributes[:'DetailsLevel']
       end
 
       if attributes.key?(:'UseFramesForDelInsElements')
@@ -178,8 +228,12 @@ module GroupDocsComparisonCloud
         self.calculate_component_coordinates = attributes[:'CalculateComponentCoordinates']
       end
 
-      if attributes.key?(:'MarkDeletedInsertedContentDeep')
-        self.mark_deleted_inserted_content_deep = attributes[:'MarkDeletedInsertedContentDeep']
+      if attributes.key?(:'MarkChangedContent')
+        self.mark_changed_content = attributes[:'MarkChangedContent']
+      end
+
+      if attributes.key?(:'MarkNestedContent')
+        self.mark_nested_content = attributes[:'MarkNestedContent']
       end
 
       if attributes.key?(:'CloneMetadata')
@@ -206,6 +260,18 @@ module GroupDocsComparisonCloud
         self.original_size = attributes[:'OriginalSize']
       end
 
+      if attributes.key?(:'HeaderFootersComparison')
+        self.header_footers_comparison = attributes[:'HeaderFootersComparison']
+      end
+
+      if attributes.key?(:'PaperSize')
+        self.paper_size = attributes[:'PaperSize']
+      end
+
+      if attributes.key?(:'SensitivityOfComparison')
+        self.sensitivity_of_comparison = attributes[:'SensitivityOfComparison']
+      end
+
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -220,8 +286,16 @@ module GroupDocsComparisonCloud
         invalid_properties.push("invalid value for 'show_deleted_content', show_deleted_content cannot be nil.")
       end
 
+      if @show_inserted_content.nil?
+        invalid_properties.push("invalid value for 'show_inserted_content', show_inserted_content cannot be nil.")
+      end
+
       if @style_change_detection.nil?
         invalid_properties.push("invalid value for 'style_change_detection', style_change_detection cannot be nil.")
+      end
+
+      if @details_level.nil?
+        invalid_properties.push("invalid value for 'details_level', details_level cannot be nil.")
       end
 
       if @use_frames_for_del_ins_elements.nil?
@@ -232,8 +306,32 @@ module GroupDocsComparisonCloud
         invalid_properties.push("invalid value for 'calculate_component_coordinates', calculate_component_coordinates cannot be nil.")
       end
 
-      if @mark_deleted_inserted_content_deep.nil?
-        invalid_properties.push("invalid value for 'mark_deleted_inserted_content_deep', mark_deleted_inserted_content_deep cannot be nil.")
+      if @mark_changed_content.nil?
+        invalid_properties.push("invalid value for 'mark_changed_content', mark_changed_content cannot be nil.")
+      end
+
+      if @mark_nested_content.nil?
+        invalid_properties.push("invalid value for 'mark_nested_content', mark_nested_content cannot be nil.")
+      end
+
+      if @clone_metadata.nil?
+        invalid_properties.push("invalid value for 'clone_metadata', clone_metadata cannot be nil.")
+      end
+
+      if @password_save_option.nil?
+        invalid_properties.push("invalid value for 'password_save_option', password_save_option cannot be nil.")
+      end
+
+      if @header_footers_comparison.nil?
+        invalid_properties.push("invalid value for 'header_footers_comparison', header_footers_comparison cannot be nil.")
+      end
+
+      if @paper_size.nil?
+        invalid_properties.push("invalid value for 'paper_size', paper_size cannot be nil.")
+      end
+
+      if @sensitivity_of_comparison.nil?
+        invalid_properties.push("invalid value for 'sensitivity_of_comparison', sensitivity_of_comparison cannot be nil.")
       end
 
       return invalid_properties
@@ -244,11 +342,83 @@ module GroupDocsComparisonCloud
     def valid?
       return false if @generate_summary_page.nil?
       return false if @show_deleted_content.nil?
+      return false if @show_inserted_content.nil?
       return false if @style_change_detection.nil?
+      return false if @details_level.nil?
+      details_level_validator = EnumAttributeValidator.new('String', ["Low", "Middle", "High"])
+      return false unless details_level_validator.valid?(@details_level)
       return false if @use_frames_for_del_ins_elements.nil?
       return false if @calculate_component_coordinates.nil?
-      return false if @mark_deleted_inserted_content_deep.nil?
+      return false if @mark_changed_content.nil?
+      return false if @mark_nested_content.nil?
+      return false if @clone_metadata.nil?
+      clone_metadata_validator = EnumAttributeValidator.new('String', ["Default", "Source", "Target", "FileAuthor"])
+      return false unless clone_metadata_validator.valid?(@clone_metadata)
+      return false if @password_save_option.nil?
+      password_save_option_validator = EnumAttributeValidator.new('String', ["None", "Source", "Target", "User"])
+      return false unless password_save_option_validator.valid?(@password_save_option)
+      return false if @header_footers_comparison.nil?
+      return false if @paper_size.nil?
+      paper_size_validator = EnumAttributeValidator.new('String', ["Default", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"])
+      return false unless paper_size_validator.valid?(@paper_size)
+      return false if @sensitivity_of_comparison.nil?
       return true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] details_level Object to be assigned
+    def details_level=(details_level)
+      validator = EnumAttributeValidator.new('String', ["Low", "Middle", "High"])
+      if details_level.to_i == 0
+        unless validator.valid?(details_level)
+          raise ArgumentError, "invalid value for 'details_level', must be one of #{validator.allowable_values}."
+        end
+        @details_level = details_level
+      else
+        @details_level = validator.allowable_values[details_level.to_i]
+      end
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] clone_metadata Object to be assigned
+    def clone_metadata=(clone_metadata)
+      validator = EnumAttributeValidator.new('String', ["Default", "Source", "Target", "FileAuthor"])
+      if clone_metadata.to_i == 0
+        unless validator.valid?(clone_metadata)
+          raise ArgumentError, "invalid value for 'clone_metadata', must be one of #{validator.allowable_values}."
+        end
+        @clone_metadata = clone_metadata
+      else
+        @clone_metadata = validator.allowable_values[clone_metadata.to_i]
+      end
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] password_save_option Object to be assigned
+    def password_save_option=(password_save_option)
+      validator = EnumAttributeValidator.new('String', ["None", "Source", "Target", "User"])
+      if password_save_option.to_i == 0
+        unless validator.valid?(password_save_option)
+          raise ArgumentError, "invalid value for 'password_save_option', must be one of #{validator.allowable_values}."
+        end
+        @password_save_option = password_save_option
+      else
+        @password_save_option = validator.allowable_values[password_save_option.to_i]
+      end
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] paper_size Object to be assigned
+    def paper_size=(paper_size)
+      validator = EnumAttributeValidator.new('String', ["Default", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"])
+      if paper_size.to_i == 0
+        unless validator.valid?(paper_size)
+          raise ArgumentError, "invalid value for 'paper_size', must be one of #{validator.allowable_values}."
+        end
+        @paper_size = paper_size
+      else
+        @paper_size = validator.allowable_values[paper_size.to_i]
+      end
     end
 
     # Checks equality by comparing each attribute.
@@ -258,21 +428,26 @@ module GroupDocsComparisonCloud
       self.class == other.class &&
           generate_summary_page == other.generate_summary_page &&
           show_deleted_content == other.show_deleted_content &&
+          show_inserted_content == other.show_inserted_content &&
           style_change_detection == other.style_change_detection &&
           inserted_items_style == other.inserted_items_style &&
           deleted_items_style == other.deleted_items_style &&
-          style_changed_items_style == other.style_changed_items_style &&
+          changed_items_style == other.changed_items_style &&
           words_separator_chars == other.words_separator_chars &&
-          detail_level == other.detail_level &&
+          details_level == other.details_level &&
           use_frames_for_del_ins_elements == other.use_frames_for_del_ins_elements &&
           calculate_component_coordinates == other.calculate_component_coordinates &&
-          mark_deleted_inserted_content_deep == other.mark_deleted_inserted_content_deep &&
+          mark_changed_content == other.mark_changed_content &&
+          mark_nested_content == other.mark_nested_content &&
           clone_metadata == other.clone_metadata &&
           meta_data == other.meta_data &&
           password_save_option == other.password_save_option &&
           password == other.password &&
           diagram_master_setting == other.diagram_master_setting &&
-          original_size == other.original_size
+          original_size == other.original_size &&
+          header_footers_comparison == other.header_footers_comparison &&
+          paper_size == other.paper_size &&
+          sensitivity_of_comparison == other.sensitivity_of_comparison
     end
 
     # @see the `==` method
@@ -284,7 +459,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [generate_summary_page, show_deleted_content, style_change_detection, inserted_items_style, deleted_items_style, style_changed_items_style, words_separator_chars, detail_level, use_frames_for_del_ins_elements, calculate_component_coordinates, mark_deleted_inserted_content_deep, clone_metadata, meta_data, password_save_option, password, diagram_master_setting, original_size].hash
+      [generate_summary_page, show_deleted_content, show_inserted_content, style_change_detection, inserted_items_style, deleted_items_style, changed_items_style, words_separator_chars, details_level, use_frames_for_del_ins_elements, calculate_component_coordinates, mark_changed_content, mark_nested_content, clone_metadata, meta_data, password_save_option, password, diagram_master_setting, original_size, header_footers_comparison, paper_size, sensitivity_of_comparison].hash
     end
 
     # Downcases first letter.
