@@ -12,7 +12,7 @@ gem install groupdocs_comparison_cloud
 To add dependency to your app copy following into your Gemfile and run `bundle install`:
 
 ```
-gem "groupdocs_comparison_cloud", "~> 20.5"
+gem "groupdocs_comparison_cloud", "~> 20.12"
 ```
 
 ## Getting Started
@@ -42,4 +42,12 @@ end
 ## Licensing
 GroupDocs.Comparison Cloud Ruby SDK licensed under [MIT License](LICENSE).
 
-[Home](https://www.groupdocs.cloud/) | [Product Page](https://products.groupdocs.cloud/comparison/ruby) | [Docs](https://docs.groupdocs.cloud/comparison/) | [Demos](https://products.groupdocs.app/comparison/family) | [API Reference](https://apireference.groupdocs.cloud/comparison/) | [Examples](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-ruby-samples) | [Blog](https://blog.groupdocs.cloud/category/comparison/) | [Free Support](https://forum.groupdocs.cloud/c/comparison) | [Free Trial](https://purchase.groupdocs.cloud/trial)
+## Resources
++ [**Website**](https://www.groupdocs.cloud)
++ [**Product Home**](https://products.groupdocs.cloud/comparison)
++ [**Documentation**](https://docs.groupdocs.cloud/comparison)
++ [**Free Support Forum**](https://forum.groupdocs.cloud/c/comparison)
++ [**Blog**](https://blog.groupdocs.cloud/category/comparison)
+
+## Contact Us
+Your feedback is very important to us. Please feel free to contact us using our [Support Forums](https://forum.groupdocs.cloud/c/comparison).
