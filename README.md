@@ -1,33 +1,69 @@
-# GroupDocs.Comparison Cloud Ruby SDK
-Ruby gem for communicating with the GroupDocs.Comparison Cloud API
+![](https://img.shields.io/badge/api-v2.0-lightgrey) ![Gem](https://img.shields.io/gem/v/groupdocs_comparison_cloud) ![Gem](https://img.shields.io/gem/dt/groupdocs_comparison_cloud) [![GitHub license](https://img.shields.io/github/license/groupdocs-comparison-cloud/groupdocs-comparison-cloud-ruby)](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-ruby/blob/master/LICENSE) 
 
-## Installation
+# Ruby SDK to Compare Documents in the Cloud
 
-A gem of groupdocs_comparison_cloud is available at [rubygems.org](https://rubygems.org). You can install it with:
+[GroupDocs.Comparison Cloud SDK for Ruby](https://products.groupdocs.cloud/comparison/ruby) wraps GroupDocs.Comparison RESTful APIs so you may integrate **Document Comparison** features in your own apps with zero initial cost.
+
+GroupDocs.Comparison Cloud API allows the developers to build corporate document comparison tools using REST API. Works as a comprehensive solution for all major file formats.
+
+## Document Comparison REST API
+
+- Compare documents.
+- Get list of changes.
+- Update changes (Accept or Reject changes).
+- Get list of document revisions.
+- Update document revisions (Accept or Reject revisions).
+- Extract metadata & basic information about the source document.
+- Obtain all supported comparison formats list.
+- Integrated storage API.
+
+Check out the [Developer's Guide](https://docs.groupdocs.cloud/comparison/developer-guide/) to know more about GroupDocs.Comparison REST API.
+
+## Microsoft File Formats
+
+**Microsoft Word:** DOC, DOCX, DOT, DOTX, DOCM, DOTM, RTF\
+**Microsoft Excel:** XLS, XLSX, XLSM, XLSB, XLS2003\
+**Microsoft PowerPoint:** PPT, PPTX, PPS, PPSX\
+**Microsoft Project:** MPP, MPT\
+**Microsoft Outlook:** EML, EMLX, MSG\
+
+## Other Formats
+
+**OpenDocument:** ODT, OTT, ODS, ODP, OTP\
+**Web:** HTM, HTML, MHTML\
+**Fixed Layout:** PDF\
+**Image Files:** JPEG, BMP, PNG, GIF\
+**Text:** TXT and other text formats with different extensions\
+**Others:** DJVU, DICOM, PDF, CSV\
+
+
+## Get Started with GroupDocs.Comparison Cloud SDK for Ruby
+
+First create an account at [GroupDocs for Cloud](https://dashboard.groupdocs.cloud/) and get your application information. Next, execute the following command to get the package.
 
 ```shell
 gem install groupdocs_comparison_cloud
 ```    
 
-To add dependency to your app copy following into your Gemfile and run `bundle install`:
+Copy the following into your Gemfile and run `bundle install` to add dependency to your app.
 
 ```
 gem "groupdocs_comparison_cloud", "~> 20.12"
 ```
 
-## Getting Started
+## Get Supported File Formats for Comparison
 
-Please follow the [installation](#installation) procedure and then run the following code:
 ```ruby
 # Load the gem
 require 'groupdocs_comparison_cloud'
 
-# Get your app_sid and app_key at https://dashboard.groupdocs.cloud (free registration is required).
-app_sid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
-app_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+# Get Client Id and Client Secret from https://dashboard.groupdocs.cloud
+$my_client_id = ""
+$my_client_secret = ""
 
-# Create instance of the API class
-api = GroupDocsComparisonCloud::InfoApi.from_keys(app_sid, app_key)
+# Create instance of the API
+$configuration = GroupDocsComparisonCloud::Configuration.new($my_client_id, $my_client_secret)
+api = GroupDocsComparisonCloud::InfoApi.from_config($configuration)
 
 # Retrieve supported file-formats
 response = api.get_supported_file_formats
@@ -39,15 +75,11 @@ response.formats.each do |format|
 end
 ```
 
-## Licensing
-GroupDocs.Comparison Cloud Ruby SDK licensed under [MIT License](LICENSE).
+## GroupDocs.Comparison Cloud SDKs in Popular Languages
 
-## Resources
-+ [**Website**](https://www.groupdocs.cloud)
-+ [**Product Home**](https://products.groupdocs.cloud/comparison)
-+ [**Documentation**](https://docs.groupdocs.cloud/comparison)
-+ [**Free Support Forum**](https://forum.groupdocs.cloud/c/comparison)
-+ [**Blog**](https://blog.groupdocs.cloud/category/comparison)
+| .NET | Java | PHP | Python | Ruby | Node.js | Android |
+|---|---|---|---|---|---|---|
+| [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-dotnet) | [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-java) | [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-php) | [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-python) | [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-ruby)  | [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-node) | [GitHub](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-android) |
+| [NuGet](https://www.nuget.org/packages/GroupDocs.Comparison-Cloud/) | [Maven](https://repository.groupdocs.cloud/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-comparison-cloud) | [Composer](https://packagist.org/packages/groupdocscloud/groupdocs-comparison-cloud) | [PIP](https://pypi.org/project/groupdocs-comparison-cloud/) | [GEM](https://rubygems.org/gems/groupdocs_comparison_cloud)  | [NPM](https://www.npmjs.com/package/groupdocs-comparison-cloud) |  | 
 
-## Contact Us
-Your feedback is very important to us. Please feel free to contact us using our [Support Forums](https://forum.groupdocs.cloud/c/comparison).
+[Home](https://www.groupdocs.cloud/) | [Product Page](https://products.groupdocs.cloud/comparison/ruby) | [Documentation](https://docs.groupdocs.cloud/comparison/) | [Live Demo](https://products.groupdocs.app/comparison/total) | [API Reference](https://apireference.groupdocs.cloud/comparison/) | [Code Samples](https://github.com/groupdocs-comparison-cloud/groupdocs-comparison-cloud-ruby-samples) | [Blog](https://blog.groupdocs.cloud/category/comparison/) | [Free Support](https://forum.groupdocs.cloud/c/comparison) | [Free Trial](https://dashboard.groupdocs.cloud)
