@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="apply_revisions_options.rb">
- #   Copyright (c) 2003-2020 Aspose Pty Ltd
+ #   Copyright (c) 2003-2021 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,6 +37,12 @@ module GroupDocsComparisonCloud
     # Revisions to apply or reject.
     attr_accessor :revisions
 
+    # Indicates whether to apply all revisions in the document
+    attr_accessor :accept_all
+
+    # Indicates whether to reject all revisions in the document
+    attr_accessor :reject_all
+
     # Path to the resultant document (if not specified the document will not be saved)
     attr_accessor :output_path
 
@@ -45,6 +51,8 @@ module GroupDocsComparisonCloud
       {
         :'source_file' => :'SourceFile',
         :'revisions' => :'Revisions',
+        :'accept_all' => :'AcceptAll',
+        :'reject_all' => :'RejectAll',
         :'output_path' => :'OutputPath'
       }
     end
@@ -54,6 +62,8 @@ module GroupDocsComparisonCloud
       {
         :'source_file' => :'FileInfo',
         :'revisions' => :'Array<RevisionInfo>',
+        :'accept_all' => :'BOOLEAN',
+        :'reject_all' => :'BOOLEAN',
         :'output_path' => :'String'
       }
     end
@@ -76,6 +86,14 @@ module GroupDocsComparisonCloud
         end
       end
 
+      if attributes.key?(:'AcceptAll')
+        self.accept_all = attributes[:'AcceptAll']
+      end
+
+      if attributes.key?(:'RejectAll')
+        self.reject_all = attributes[:'RejectAll']
+      end
+
       if attributes.key?(:'OutputPath')
         self.output_path = attributes[:'OutputPath']
       end
@@ -86,12 +104,22 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
+      if @accept_all.nil?
+        invalid_properties.push("invalid value for 'accept_all', accept_all cannot be nil.")
+      end
+
+      if @reject_all.nil?
+        invalid_properties.push("invalid value for 'reject_all', reject_all cannot be nil.")
+      end
+
       return invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @accept_all.nil?
+      return false if @reject_all.nil?
       return true
     end
 
@@ -102,6 +130,8 @@ module GroupDocsComparisonCloud
       self.class == other.class &&
           source_file == other.source_file &&
           revisions == other.revisions &&
+          accept_all == other.accept_all &&
+          reject_all == other.reject_all &&
           output_path == other.output_path
     end
 
@@ -114,7 +144,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_file, revisions, output_path].hash
+      [source_file, revisions, accept_all, reject_all, output_path].hash
     end
 
     # Downcases first letter.

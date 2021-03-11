@@ -1,7 +1,7 @@
 #
 # --------------------------------------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd" file="test_contex.rb">
-#    Copyright (c) 2003-2020 Aspose Pty Ltd
+#    Copyright (c) 2003-2021 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -49,6 +49,7 @@ module GroupDocsComparisonCloud
 
         @info_api = InfoApi.from_config(config)
         @compare_api = CompareApi.from_config(config)
+        @review_api = ReviewApi.from_config(config)
         @storage_api = StorageApi.from_config(config)   
         @folder_api = FolderApi.from_config(config)   
         @file_api = FileApi.from_config(config)   

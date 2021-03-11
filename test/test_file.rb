@@ -1,7 +1,7 @@
 #
 # --------------------------------------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd" file="test_file.rb">
-#    Copyright (c) 2003-2020 Aspose Pty Ltd
+#    Copyright (c) 2003-2021 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -58,6 +58,7 @@ module GroupDocsComparisonCloud
         SourceSlide = TestFile.new("source.pptx", "source_files\\slide\\")
         SourceText = TestFile.new("source.txt", "source_files\\text\\")
         SourceWord = TestFile.new("source.docx", "source_files\\word\\")
+        SourceWithRevs = TestFile.new("source_with_revs.docx", "source_files\\word\\")
     
         SourceCellProtected = TestFile.new("source_protected.xlsx", "source_files\\cell\\", "1231")
         SourceNoteProtected = TestFile.new("source_protected.one", "source_files\\note\\", "123")
@@ -104,6 +105,7 @@ module GroupDocsComparisonCloud
                 SourceSlide,
                 SourceText,
                 SourceWord,
+                SourceWithRevs,
                 SourceCellProtected,
                 SourceNoteProtected,
                 SourcePdfProtected,

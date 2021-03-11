@@ -30,43 +30,48 @@ module GroupDocsComparisonCloud
   require_relative './../test_context'
   require_relative './../test_file'
 
-  class TestStorageApi < TestContext
+  class TestReviewApi < TestContext
     
-    def test_GetDiscUsage
-      request = GetDiscUsageRequest.new
-      
-      response = @storage_api.get_disc_usage(request)
-
-      assert_operator response.total_size, :>, 0  
-      assert_operator response.used_size, :>, 0  
+    def test_changes_cells
+      response = @review_api.get_revisions(GetRevisionsRequest.new TestFile::SourceWithRevs.file_info())
+      assert_equal response.length, 2
     end
 
-    def test_GetStorageExists
-      request = StorageExistsRequest.new "First Storage"
+    def test_apply_revisions
+        options = ApplyRevisionsOptions.new
+        options.source_file = TestFile::SourceWithRevs.file_info()
+        options.output_path = "/resultFilePath/result.docx"
+        rev1 = RevisionInfo.new
+        rev1.id = 0
+        rev1.action = "Accept"
+        rev2 = RevisionInfo.new
+        rev2.id = 1
+        rev2.action = "Reject" 
+        options.revisions = [rev1, rev2]
 
-      response = @storage_api.storage_exists(request)
+        response = @review_api.apply_revisions(ApplyRevisionsRequest.new options)
+        assert_equal response.rel, options.output_path
+    end    
 
-      assert_equal true, response.exists
-    end
+    def test_accept_all_revisions
+        options = ApplyRevisionsOptions.new
+        options.source_file = TestFile::SourceWithRevs.file_info()
+        options.output_path = "/resultFilePath/result.docx"
+        options.accept_all = true
 
-    def test_GetListFileVersions
-      file = TestFile::SourceCell;
-      request = GetFileVersionsRequest.new file.path
+        response = @review_api.apply_revisions(ApplyRevisionsRequest.new options)
+        assert_equal response.rel, options.output_path
+    end   
 
-      response = @storage_api.get_file_versions(request)
+    def test_reject_all_revisions
+        options = ApplyRevisionsOptions.new
+        options.source_file = TestFile::SourceWithRevs.file_info()
+        options.output_path = "/resultFilePath/result.docx"
+        options.reject_all = true
 
-      assert_operator response.value.size, :>, 0  
-    end
-
-    def test_GetObjectExists
-      file = TestFile::SourceCell;
-      request = ObjectExistsRequest.new file.path
-
-      response = @storage_api.object_exists(request)
-
-      assert_equal true, response.exists
-      assert_equal false, response.is_folder
-    end
+        response = @review_api.apply_revisions(ApplyRevisionsRequest.new options)
+        assert_equal response.rel, options.output_path
+    end   
 
   end
 end
