@@ -93,6 +93,8 @@ module GroupDocsComparisonCloud
         TargetWord1Protected = TestFile.new("target_1_protected.docx", "target_files\\word\\", "5784")
         TargetWord2Protected = TestFile.new("target_2_protected.docx", "target_files\\word\\", "5784")
 
+        NotExist = TestFile.new("notexist.docx", "some-folder\\")
+
         def self.test_files_list
             [
                 SourceCell,

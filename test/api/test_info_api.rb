@@ -28,6 +28,7 @@
 module GroupDocsComparisonCloud
 
   require_relative './../test_context'
+  require_relative './../test_file'  
 
   class TestInfoApi < TestContext
     
@@ -43,6 +44,26 @@ module GroupDocsComparisonCloud
         assert_equal false, format.extension.empty?
       end
     end
+
+    def test_GetInfoReturnsFileNotFound
+      file_info = TestFile::NotExist.file_info()
+      request = GetDocumentInfoRequest.new(file_info)    
+
+      error = assert_raises ApiError do
+        @info_api.get_document_info(request)
+      end
+
+      assert_equal "Can't find file located at 'some-folder\\notexist.docx'.", error.message            
+    end    
+
+    def test_GetInfo
+      file_info = TestFile::SourceWord.file_info()
+      request = GetDocumentInfoRequest.new(file_info)        
+
+      response = @info_api.get_document_info(request)
+
+      assert_equal 1, response.page_count
+    end    
 
   end
 end
