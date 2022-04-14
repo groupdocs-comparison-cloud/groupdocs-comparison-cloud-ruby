@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    groupdocs_comparison_cloud (21.7)
+    groupdocs_comparison_cloud (22.4)
       addressable (~> 2.5.0, >= 2.5.0)
       faraday (~> 0.14.0)
 

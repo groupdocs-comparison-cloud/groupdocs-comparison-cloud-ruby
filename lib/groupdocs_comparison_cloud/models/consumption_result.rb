@@ -1,6 +1,6 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="file_version.rb">
+ # <copyright company="Aspose Pty Ltd" file="consumption_result.rb">
  #   Copyright (c) 2003-2022 Aspose Pty Ltd
  # </copyright>
  # <summary>
@@ -28,53 +28,28 @@
 require 'date'
 
 module GroupDocsComparisonCloud
-  # File Version
-  class FileVersion
+  # Metered license consumption information
+  class ConsumptionResult
 
-    # File or folder name.
-    attr_accessor :name
+    # Amount of used credits
+    attr_accessor :credit
 
-    # True if it is a folder.
-    attr_accessor :is_folder
-
-    # File or folder last modified DateTime.
-    attr_accessor :modified_date
-
-    # File or folder size.
-    attr_accessor :size
-
-    # File or folder path.
-    attr_accessor :path
-
-    # File Version ID.
-    attr_accessor :version_id
-
-    # Specifies whether the file is (true) or is not (false) the latest version of an file.
-    attr_accessor :is_latest
+    # Amount of MBs processed
+    attr_accessor :quantity
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'name' => :'Name',
-        :'is_folder' => :'IsFolder',
-        :'modified_date' => :'ModifiedDate',
-        :'size' => :'Size',
-        :'path' => :'Path',
-        :'version_id' => :'VersionId',
-        :'is_latest' => :'IsLatest'
+        :'credit' => :'Credit',
+        :'quantity' => :'Quantity'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'name' => :'String',
-        :'is_folder' => :'BOOLEAN',
-        :'modified_date' => :'DateTime',
-        :'size' => :'Integer',
-        :'path' => :'String',
-        :'version_id' => :'String',
-        :'is_latest' => :'BOOLEAN'
+        :'credit' => :'Float',
+        :'quantity' => :'Float'
       }
     end
 
@@ -86,32 +61,12 @@ module GroupDocsComparisonCloud
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.key?(:'Name')
-        self.name = attributes[:'Name']
+      if attributes.key?(:'Credit')
+        self.credit = attributes[:'Credit']
       end
 
-      if attributes.key?(:'IsFolder')
-        self.is_folder = attributes[:'IsFolder']
-      end
-
-      if attributes.key?(:'ModifiedDate')
-        self.modified_date = attributes[:'ModifiedDate']
-      end
-
-      if attributes.key?(:'Size')
-        self.size = attributes[:'Size']
-      end
-
-      if attributes.key?(:'Path')
-        self.path = attributes[:'Path']
-      end
-
-      if attributes.key?(:'VersionId')
-        self.version_id = attributes[:'VersionId']
-      end
-
-      if attributes.key?(:'IsLatest')
-        self.is_latest = attributes[:'IsLatest']
+      if attributes.key?(:'Quantity')
+        self.quantity = attributes[:'Quantity']
       end
 
     end
@@ -120,16 +75,12 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
-      if @is_folder.nil?
-        invalid_properties.push("invalid value for 'is_folder', is_folder cannot be nil.")
+      if @credit.nil?
+        invalid_properties.push("invalid value for 'credit', credit cannot be nil.")
       end
 
-      if @size.nil?
-        invalid_properties.push("invalid value for 'size', size cannot be nil.")
-      end
-
-      if @is_latest.nil?
-        invalid_properties.push("invalid value for 'is_latest', is_latest cannot be nil.")
+      if @quantity.nil?
+        invalid_properties.push("invalid value for 'quantity', quantity cannot be nil.")
       end
 
       return invalid_properties
@@ -138,9 +89,8 @@ module GroupDocsComparisonCloud
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @is_folder.nil?
-      return false if @size.nil?
-      return false if @is_latest.nil?
+      return false if @credit.nil?
+      return false if @quantity.nil?
       return true
     end
 
@@ -149,13 +99,8 @@ module GroupDocsComparisonCloud
     def ==(other)
       return true if self.equal?(other)
       self.class == other.class &&
-          name == other.name &&
-          is_folder == other.is_folder &&
-          modified_date == other.modified_date &&
-          size == other.size &&
-          path == other.path &&
-          version_id == other.version_id &&
-          is_latest == other.is_latest
+          credit == other.credit &&
+          quantity == other.quantity
     end
 
     # @see the `==` method
@@ -167,7 +112,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, is_folder, modified_date, size, path, version_id, is_latest].hash
+      [credit, quantity].hash
     end
 
     # Downcases first letter.
