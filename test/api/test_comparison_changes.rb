@@ -1,7 +1,7 @@
 #
 # --------------------------------------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd">
-#    Copyright (c) 2003-2022 Aspose Pty Ltd
+#    Copyright (c) 2003-2023 Aspose Pty Ltd
 # </copyright>
 # <summary>
 #   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -53,7 +53,7 @@ module GroupDocsComparisonCloud
     def test_changes_html
         options = GetComparisonOptions(TestFile::SourceHtml, TestFile::TargetHtml)
         response = @compare_api.post_changes(PostChangesRequest.new options)
-        assert_equal response.length, 3
+        assert_equal response.length, 2
     end 
 
     def test_changes_image

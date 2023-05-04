@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="settings.rb">
- #   Copyright (c) 2003-2022 Aspose Pty Ltd
+ #   Copyright (c) 2003-2023 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -371,7 +371,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["Low", "Middle", "High"])
       if details_level.to_i == 0
         unless validator.valid?(details_level)
-          raise ArgumentError, "invalid value for 'details_level', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'details_level', must be one of #{validator.allowable_values}."
+           @details_level = validator.allowable_values[details_level.to_i]
         end
         @details_level = details_level
       else
@@ -385,7 +386,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["Default", "Source", "Target", "FileAuthor"])
       if clone_metadata.to_i == 0
         unless validator.valid?(clone_metadata)
-          raise ArgumentError, "invalid value for 'clone_metadata', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'clone_metadata', must be one of #{validator.allowable_values}."
+           @clone_metadata = validator.allowable_values[clone_metadata.to_i]
         end
         @clone_metadata = clone_metadata
       else
@@ -399,7 +401,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["None", "Source", "Target", "User"])
       if password_save_option.to_i == 0
         unless validator.valid?(password_save_option)
-          raise ArgumentError, "invalid value for 'password_save_option', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'password_save_option', must be one of #{validator.allowable_values}."
+           @password_save_option = validator.allowable_values[password_save_option.to_i]
         end
         @password_save_option = password_save_option
       else
@@ -413,7 +416,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["Default", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"])
       if paper_size.to_i == 0
         unless validator.valid?(paper_size)
-          raise ArgumentError, "invalid value for 'paper_size', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'paper_size', must be one of #{validator.allowable_values}."
+           @paper_size = validator.allowable_values[paper_size.to_i]
         end
         @paper_size = paper_size
       else

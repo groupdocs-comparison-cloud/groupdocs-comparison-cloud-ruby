@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="revision_info.rb">
- #   Copyright (c) 2003-2022 Aspose Pty Ltd
+ #   Copyright (c) 2003-2023 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -157,7 +157,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["None", "Accept", "Reject"])
       if action.to_i == 0
         unless validator.valid?(action)
-          raise ArgumentError, "invalid value for 'action', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'action', must be one of #{validator.allowable_values}."
+           @action = validator.allowable_values[action.to_i]
         end
         @action = action
       else
@@ -171,7 +172,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["Insertion", "Deletion", "FormatChange", "StyleDefinitionChange", "Moving"])
       if type.to_i == 0
         unless validator.valid?(type)
-          raise ArgumentError, "invalid value for 'type', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'type', must be one of #{validator.allowable_values}."
+           @type = validator.allowable_values[type.to_i]
         end
         @type = type
       else

@@ -1,7 +1,7 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="updates_options.rb">
- #   Copyright (c) 2003-2022 Aspose Pty Ltd
+ #   Copyright (c) 2003-2023 Aspose Pty Ltd
  # </copyright>
  # <summary>
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -158,7 +158,8 @@ module GroupDocsComparisonCloud
       validator = EnumAttributeValidator.new('String', ["None", "Modified", "Inserted", "Deleted", "Added", "NotModified", "StyleChanged", "Resized", "Moved", "MovedAndResized", "ShiftedAndResized"])
       if change_type.to_i == 0
         unless validator.valid?(change_type)
-          raise ArgumentError, "invalid value for 'change_type', must be one of #{validator.allowable_values}."
+          # raise ArgumentError, "invalid value for 'change_type', must be one of #{validator.allowable_values}."
+           @change_type = validator.allowable_values[change_type.to_i]
         end
         @change_type = change_type
       else
