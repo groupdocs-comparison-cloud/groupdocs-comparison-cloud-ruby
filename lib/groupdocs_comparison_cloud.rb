@@ -25,7 +25,7 @@
 
 # Common files
 require_relative 'groupdocs_comparison_cloud/api_client'
-require_relative 'groupdocs_comparison_cloud/api_error'
+require_relative 'groupdocs_comparison_cloud/api_client_error'
 require_relative 'groupdocs_comparison_cloud/version'
 require_relative 'groupdocs_comparison_cloud/configuration'
 

@@ -49,7 +49,7 @@ module GroupDocsComparisonCloud
       file_info = TestFile::NotExist.file_info()
       request = GetDocumentInfoRequest.new(file_info)    
 
-      error = assert_raises ApiError do
+      error = assert_raises ApiClientError do
         @info_api.get_document_info(request)
       end
 

@@ -62,17 +62,18 @@ module GroupDocsComparisonCloud
         assert_equal response.rel, options.output_path
     end 
 
-    def test_updates_note
-        options = GetComparisonOptions(TestFile::SourceNote, TestFile::TargetNote)
-        response = @compare_api.put_changes_document(PutChangesDocumentRequest.new options)
-        assert_equal response.rel, options.output_path
-    end
+    # Not supported in linux
+    # def test_updates_note
+    #     options = GetComparisonOptions(TestFile::SourceNote, TestFile::TargetNote)
+    #     response = @compare_api.put_changes_document(PutChangesDocumentRequest.new options)
+    #     assert_equal response.rel, options.output_path
+    # end
 
-    def test_updates_note_protected
-        options = GetComparisonOptions(TestFile::SourceNoteProtected, TestFile::TargetNoteProtected)
-        response = @compare_api.put_changes_document(PutChangesDocumentRequest.new options)
-        assert_equal response.rel, options.output_path
-    end
+    # def test_updates_note_protected
+    #     options = GetComparisonOptions(TestFile::SourceNoteProtected, TestFile::TargetNoteProtected)
+    #     response = @compare_api.put_changes_document(PutChangesDocumentRequest.new options)
+    #     assert_equal response.rel, options.output_path
+    # end
 
     def test_updates_pdf
         options = GetComparisonOptions(TestFile::SourcePdf, TestFile::TargetPdf)

@@ -62,17 +62,18 @@ module GroupDocsComparisonCloud
         assert_equal response.length, 170
     end 
 
-    def test_changes_note
-        options = GetComparisonOptions(TestFile::SourceNote, TestFile::TargetNote)
-        response = @compare_api.post_changes(PostChangesRequest.new options)
-        assert_equal response.length, 12
-    end
+    # Not supported in linux
+    # def test_changes_note
+    #     options = GetComparisonOptions(TestFile::SourceNote, TestFile::TargetNote)
+    #     response = @compare_api.post_changes(PostChangesRequest.new options)
+    #     assert_equal response.length, 12
+    # end
 
-    def test_changes_note_protected
-        options = GetComparisonOptions(TestFile::SourceNoteProtected, TestFile::TargetNoteProtected)
-        response = @compare_api.post_changes(PostChangesRequest.new options)
-        assert_equal response.length, 12
-    end
+    # def test_changes_note_protected
+    #     options = GetComparisonOptions(TestFile::SourceNoteProtected, TestFile::TargetNoteProtected)
+    #     response = @compare_api.post_changes(PostChangesRequest.new options)
+    #     assert_equal response.length, 12
+    # end
 
     def test_changes_pdf
         options = GetComparisonOptions(TestFile::SourcePdf, TestFile::TargetPdf)
