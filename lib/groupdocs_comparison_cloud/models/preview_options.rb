@@ -1,6 +1,6 @@
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="diagram_master_setting.rb">
+ # <copyright company="Aspose Pty Ltd" file="preview_options.rb">
  #   Copyright (c) Aspose Pty Ltd
  # </copyright>
  # <summary>
@@ -28,28 +28,69 @@
 require 'date'
 
 module GroupDocsComparisonCloud
-  # DiagramMasterSetting Object fields
-  class DiagramMasterSetting
+  # Defines preview options
+  class PreviewOptions
 
-    # Path to custom master path
-    attr_accessor :master_path
+    # Input file info
+    attr_accessor :file_info
 
-    # Value of using master from source and target document together
-    attr_accessor :use_source_master
+    # Preview image format
+    attr_accessor :format
+
+    # Path to folder with preview results
+    attr_accessor :output_folder
+
+    # Preview width
+    attr_accessor :width
+
+    # Preview height
+    attr_accessor :height
+
+    # Page numbers that will be previewed.
+    attr_accessor :page_numbers
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'master_path' => :'MasterPath',
-        :'use_source_master' => :'UseSourceMaster'
+        :'file_info' => :'FileInfo',
+        :'format' => :'Format',
+        :'output_folder' => :'OutputFolder',
+        :'width' => :'Width',
+        :'height' => :'Height',
+        :'page_numbers' => :'PageNumbers'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'master_path' => :'String',
-        :'use_source_master' => :'BOOLEAN'
+        :'file_info' => :'FileInfo',
+        :'format' => :'String',
+        :'output_folder' => :'String',
+        :'width' => :'Integer',
+        :'height' => :'Integer',
+        :'page_numbers' => :'Array<Integer>'
       }
     end
 
@@ -61,12 +102,30 @@ module GroupDocsComparisonCloud
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.key?(:'MasterPath')
-        self.master_path = attributes[:'MasterPath']
+      if attributes.key?(:'FileInfo')
+        self.file_info = attributes[:'FileInfo']
       end
 
-      if attributes.key?(:'UseSourceMaster')
-        self.use_source_master = attributes[:'UseSourceMaster']
+      if attributes.key?(:'Format')
+        self.format = attributes[:'Format']
+      end
+
+      if attributes.key?(:'OutputFolder')
+        self.output_folder = attributes[:'OutputFolder']
+      end
+
+      if attributes.key?(:'Width')
+        self.width = attributes[:'Width']
+      end
+
+      if attributes.key?(:'Height')
+        self.height = attributes[:'Height']
+      end
+
+      if attributes.key?(:'PageNumbers')
+        if (value = attributes[:'PageNumbers']).is_a?(Array)
+          self.page_numbers = value
+        end
       end
 
     end
@@ -75,8 +134,16 @@ module GroupDocsComparisonCloud
     # @return Array for valid properies with the reasons
     def list_invalid_properties
       invalid_properties = []
-      if @use_source_master.nil?
-        invalid_properties.push("invalid value for 'use_source_master', use_source_master cannot be nil.")
+      if @format.nil?
+        invalid_properties.push("invalid value for 'format', format cannot be nil.")
+      end
+
+      if @width.nil?
+        invalid_properties.push("invalid value for 'width', width cannot be nil.")
+      end
+
+      if @height.nil?
+        invalid_properties.push("invalid value for 'height', height cannot be nil.")
       end
 
       return invalid_properties
@@ -85,8 +152,27 @@ module GroupDocsComparisonCloud
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @use_source_master.nil?
+      return false if @format.nil?
+      format_validator = EnumAttributeValidator.new('String', ["Jpeg", "Png", "Bmp"])
+      return false unless format_validator.valid?(@format)
+      return false if @width.nil?
+      return false if @height.nil?
       return true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] format Object to be assigned
+    def format=(format)
+      validator = EnumAttributeValidator.new('String', ["Jpeg", "Png", "Bmp"])
+      if format.to_i == 0
+        unless validator.valid?(format)
+          # raise ArgumentError, "invalid value for 'format', must be one of #{validator.allowable_values}."
+           @format = validator.allowable_values[format.to_i]
+        end
+        @format = format
+      else
+        @format = validator.allowable_values[format.to_i]
+      end
     end
 
     # Checks equality by comparing each attribute.
@@ -94,8 +180,12 @@ module GroupDocsComparisonCloud
     def ==(other)
       return true if self.equal?(other)
       self.class == other.class &&
-          master_path == other.master_path &&
-          use_source_master == other.use_source_master
+          file_info == other.file_info &&
+          format == other.format &&
+          output_folder == other.output_folder &&
+          width == other.width &&
+          height == other.height &&
+          page_numbers == other.page_numbers
     end
 
     # @see the `==` method
@@ -107,7 +197,7 @@ module GroupDocsComparisonCloud
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [master_path, use_source_master].hash
+      [file_info, format, output_folder, width, height, page_numbers].hash
     end
 
     # Downcases first letter.

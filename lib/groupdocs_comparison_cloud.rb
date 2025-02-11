@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------------
 # <copyright company="Aspose Pty Ltd" file="groupdocs_comparison_cloud.rb">
-#   Copyright (c) 2003-2024 Aspose Pty Ltd
+#   Copyright (c) Aspose Pty Ltd
 # </copyright>
 # <summary>
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -50,6 +50,7 @@ require_relative 'groupdocs_comparison_cloud/models/link'
 require_relative 'groupdocs_comparison_cloud/models/metadata'
 require_relative 'groupdocs_comparison_cloud/models/object_exist'
 require_relative 'groupdocs_comparison_cloud/models/page_info'
+require_relative 'groupdocs_comparison_cloud/models/preview_options'
 require_relative 'groupdocs_comparison_cloud/models/rectangle'
 require_relative 'groupdocs_comparison_cloud/models/revision_info'
 require_relative 'groupdocs_comparison_cloud/models/settings'
@@ -66,5 +67,6 @@ require_relative 'groupdocs_comparison_cloud/api/file_api'
 require_relative 'groupdocs_comparison_cloud/api/folder_api'
 require_relative 'groupdocs_comparison_cloud/api/info_api'
 require_relative 'groupdocs_comparison_cloud/api/license_api'
+require_relative 'groupdocs_comparison_cloud/api/preview_api'
 require_relative 'groupdocs_comparison_cloud/api/review_api'
 require_relative 'groupdocs_comparison_cloud/api/storage_api'

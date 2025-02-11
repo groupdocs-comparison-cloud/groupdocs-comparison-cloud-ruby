@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------------
-# <copyright company="Aspose Pty Ltd" file="info.rb">
+# <copyright company="Aspose Pty Ltd" file="preview.rb">
 #   Copyright (c) Aspose Pty Ltd
 # </copyright>
 # <summary>
@@ -30,62 +30,62 @@ module GroupDocsComparisonCloud
   #
   # GroupDocs.Comparison Cloud API
   #
-  class InfoApi
+  class PreviewApi
     attr_accessor :config
 
-    #make InfoApi.new private 
+    #make PreviewApi.new private 
     private_class_method :new
 
-    # Initializes new instance of InfoApi
+    # Initializes new instance of PreviewApi
     #
     # @param [config] Configuration 
-    # @return [InfoApi] New instance of InfoApi
+    # @return [PreviewApi] New instance of PreviewApi
     def initialize(config)
       @config = config
       @api_client = ApiClient.new(config)
       @access_token = nil
     end
 
-    # Initializes new instance of InfoApi
+    # Initializes new instance of PreviewApi
     #
     # @param [app_sid] Application identifier (App SID)
     # @param [app_key] Application private key (App Key)
-    # @return [InfoApi] New instance of InfoApi
+    # @return [PreviewApi] New instance of PreviewApi
     def self.from_keys(app_sid, app_key)
       config = Configuration.new(app_sid, app_key)
       return new(config)
     end
 
-    # Initializes new instance of InfoApi
+    # Initializes new instance of PreviewApi
     #
     # @param [config] Configuration 
-    # @return [InfoApi] New instance of InfoApi
+    # @return [PreviewApi] New instance of PreviewApi
     def self.from_config(config)
       return new(config)
     end
 
-    # Gets document information
+    # Creates a preview images of document pages and returns an array of links to saved result
     # 
-    # @param request get_document_info_request
-    # @return [InfoResult]
-    def get_document_info(request)
-      data, _status_code, _headers = get_document_info_with_http_info(request)
+    # @param request preview_request
+    # @return [Array<Link>]
+    def preview(request)
+      data, _status_code, _headers = preview_with_http_info(request)
       data
     end
 
-    # Gets document information
+    # Creates a preview images of document pages and returns an array of links to saved result
     # 
-    # @param request get_document_info_request
-    # @return [Array<(InfoResult, Fixnum, Hash)>]
-    # InfoResult data, response status code and response headers
-    def get_document_info_with_http_info(request)
-      raise ArgumentError, 'Incorrect request type' unless request.is_a? GetDocumentInfoRequest
+    # @param request preview_request
+    # @return [Array<(Array<Link>, Fixnum, Hash)>]
+    # Array<Link> data, response status code and response headers
+    def preview_with_http_info(request)
+      raise ArgumentError, 'Incorrect request type' unless request.is_a? PreviewRequest
 
-      @api_client.config.logger.debug 'Calling API: InfoApi.get_document_info ...' if @api_client.config.debugging
-      # verify the required parameter 'file_info' is set
-      raise ArgumentError, 'Missing the required parameter file_info when calling InfoApi.get_document_info' if @api_client.config.client_side_validation && request.file_info.nil?
+      @api_client.config.logger.debug 'Calling API: PreviewApi.preview ...' if @api_client.config.debugging
+      # verify the required parameter 'preview_options' is set
+      raise ArgumentError, 'Missing the required parameter preview_options when calling PreviewApi.preview' if @api_client.config.client_side_validation && request.preview_options.nil?
       # resource path
-      local_var_path = '/comparison/info'
+      local_var_path = '/comparison/preview'
 
       # query parameters
       query_params = {}
@@ -101,66 +101,17 @@ module GroupDocsComparisonCloud
       form_params = {}
 
       # http body (model)
-      post_body = @api_client.object_to_http_body(request.file_info)
+      post_body = @api_client.object_to_http_body(request.preview_options)
       data, status_code, headers = @api_client.call_api(:POST, local_var_path,
                                                         header_params: header_params,
                                                         query_params: query_params,
                                                         form_params: form_params,
                                                         body: post_body,
                                                         access_token: get_access_token,
-                                                        return_type: 'InfoResult')
+                                                        return_type: 'Array<Link>')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called:
-        InfoApi#get_document_info\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      [data, status_code, headers]
-    end
-
-    # Retrieves supported file formats list 
-    # 
-    # @return [FormatsResult]
-    def get_supported_file_formats()
-      data, _status_code, _headers = get_supported_file_formats_with_http_info()
-      data
-    end
-
-    # Retrieves supported file formats list 
-    # 
-    
-    # @return [Array<(FormatsResult, Fixnum, Hash)>]
-    # FormatsResult data, response status code and response headers
-    def get_supported_file_formats_with_http_info()
-      
-
-      @api_client.config.logger.debug 'Calling API: InfoApi.get_supported_file_formats ...' if @api_client.config.debugging
-      # resource path
-      local_var_path = '/comparison/formats'
-
-      # query parameters
-      query_params = {}
-
-      # header parameters
-      header_params = {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-      # HTTP header 'Content-Type'
-      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
-
-      # form parameters
-      form_params = {}
-
-      # http body (model)
-      post_body = nil
-      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
-                                                        header_params: header_params,
-                                                        query_params: query_params,
-                                                        form_params: form_params,
-                                                        body: post_body,
-                                                        access_token: get_access_token,
-                                                        return_type: 'FormatsResult')
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called:
-        InfoApi#get_supported_file_formats\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        PreviewApi#preview\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       [data, status_code, headers]
     end
@@ -221,7 +172,7 @@ module GroupDocsComparisonCloud
 end
  #
  # --------------------------------------------------------------------------------------------------------------------
- # <copyright company="Aspose Pty Ltd" file="get_document_info_request.rb">
+ # <copyright company="Aspose Pty Ltd" file="preview_request.rb">
  #   Copyright (c) Aspose Pty Ltd
  # </copyright>
  # <summary>
@@ -249,18 +200,18 @@ end
 module GroupDocsComparisonCloud
 
   #
-  # Request model for get_document_info operation.
+  # Request model for preview operation.
   #
-  class GetDocumentInfoRequest
+  class PreviewRequest
 
-        # Gets or sets file_info
-        attr_accessor :file_info
+        # Preview options
+        attr_accessor :preview_options
 	
         #
         # Initializes a new instance.
-        # @param file_info 
-        def initialize(file_info)
-           self.file_info = file_info
+        # @param preview_options Preview options
+        def initialize(preview_options)
+           self.preview_options = preview_options
         end
   end
 end
