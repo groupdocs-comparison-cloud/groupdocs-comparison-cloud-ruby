@@ -68,7 +68,7 @@ module GroupDocsComparisonCloud
 
       def upload_test_files
         unless @@test_files_uploaded then
-          test_file_path = "test\\test_files\\"
+          test_file_path = "test/test_files/"
 
           TestFile.test_files_list.each do |test_file|
 

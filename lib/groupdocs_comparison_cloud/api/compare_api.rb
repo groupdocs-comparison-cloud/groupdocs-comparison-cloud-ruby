@@ -168,8 +168,66 @@ module GroupDocsComparisonCloud
       [data, status_code, headers]
     end
 
+    # Retrieves a list of changes between source and target documents supplied directly as multipart/form-data
+    #
+    # @param request put_changes_request
+    # @return [Array<ChangeInfo>]
+    def put_changes(request)
+      data, _status_code, _headers = put_changes_with_http_info(request)
+      data
+    end
+
+    # Retrieves a list of changes between source and target documents supplied directly as multipart/form-data
+    #
+    # @param request put_changes_request
+    # @return [Array<(Array<ChangeInfo>, Fixnum, Hash)>]
+    # Array<ChangeInfo> data, response status code and response headers
+    def put_changes_with_http_info(request)
+      raise ArgumentError, 'Incorrect request type' unless request.is_a? PutChangesRequest
+
+      @api_client.config.logger.debug 'Calling API: CompareApi.put_changes ...' if @api_client.config.debugging
+      # verify the required parameter 'source_file' is set
+      raise ArgumentError, 'Missing the required parameter source_file when calling CompareApi.put_changes' if @api_client.config.client_side_validation && request.source_file.nil?
+      # verify the required parameter 'target_files' is set
+      raise ArgumentError, 'Missing the required parameter target_files when calling CompareApi.put_changes' if @api_client.config.client_side_validation && request.target_files.nil?
+      # resource path
+      local_var_path = '/comparison/changes'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
+
+      # form parameters
+      form_params = {}
+      form_params[downcase_first_letter('sourceFile')] = request.source_file
+      form_params[downcase_first_letter('targetFiles')] = request.target_files
+      form_params[downcase_first_letter('settings')] = request.settings unless request.settings.nil?
+      form_params[downcase_first_letter('changeType')] = request.change_type unless request.change_type.nil?
+
+      # http body (model)
+      post_body = nil
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path,
+                                                        header_params: header_params,
+                                                        query_params: query_params,
+                                                        form_params: form_params,
+                                                        body: post_body,
+                                                        access_token: get_access_token,
+                                                        return_type: 'Array<ChangeInfo>')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called:
+        CompareApi#put_changes\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      [data, status_code, headers]
+    end
+
     # Accepts or rejects changes to the resultant document and returns a link to saved result
-    # 
+    #
     # @param request put_changes_document_request
     # @return [Link]
     def put_changes_document(request)
@@ -366,6 +424,63 @@ module GroupDocsComparisonCloud
 end
  #
  # --------------------------------------------------------------------------------------------------------------------
+ # <copyright company="Aspose Pty Ltd" file="put_changes_request.rb">
+ #   Copyright (c) Aspose Pty Ltd
+ # </copyright>
+ # <summary>
+ #  Permission is hereby granted, free of charge, to any person obtaining a copy
+ #  of this software and associated documentation files (the "Software"), to deal
+ #  in the Software without restriction, including without limitation the rights
+ #  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ #  copies of the Software, and to permit persons to whom the Software is
+ #  furnished to do so, subject to the following conditions:
+ #
+ #  The above copyright notice and this permission notice shall be included in all
+ #  copies or substantial portions of the Software.
+ #
+ #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ #  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ #  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ #  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ #  SOFTWARE.
+ # </summary>
+ # --------------------------------------------------------------------------------------------------------------------
+ #
+
+module GroupDocsComparisonCloud
+
+  #
+  # Request model for put_changes operation.
+  #
+  class PutChangesRequest
+
+        # Source document file
+        attr_accessor :source_file
+        # One or more target document files
+        attr_accessor :target_files
+        # Comparison settings serialized as JSON (optional)
+        attr_accessor :settings
+        # Change type filter, e.g. Inserted (optional)
+        attr_accessor :change_type
+
+        #
+        # Initializes a new instance.
+        # @param source_file Source document file
+        # @param target_files One or more target document files
+        # @param settings Comparison settings serialized as JSON (optional)
+        # @param change_type Change type filter (optional)
+        def initialize(source_file, target_files, settings = nil, change_type = nil)
+           self.source_file = source_file
+           self.target_files = target_files
+           self.settings = settings
+           self.change_type = change_type
+        end
+  end
+end
+ #
+ # --------------------------------------------------------------------------------------------------------------------
  # <copyright company="Aspose Pty Ltd" file="put_changes_document_request.rb">
  #   Copyright (c) Aspose Pty Ltd
  # </copyright>
@@ -376,10 +491,10 @@ end
  #  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  #  copies of the Software, and to permit persons to whom the Software is
  #  furnished to do so, subject to the following conditions:
- # 
+ #
  #  The above copyright notice and this permission notice shall be included in all
  #  copies or substantial portions of the Software.
- # 
+ #
  #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  #  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  #  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
